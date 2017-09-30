@@ -1,5 +1,3 @@
-# source("extract_data_specified_time_period.R")
-#' @importFrom rSetDayNightAttr extract_data_specified_time_period
 set_attr_day_night <- function(df, datetime_col_name, lat, lng, datetime_format="%Y-%m-%d %H:%M:%S", sr_befor=15, sr_after=15, ss_before=15, ss_after=15){
   # 型チェック
   # 新たな列追加

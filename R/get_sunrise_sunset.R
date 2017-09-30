@@ -1,7 +1,3 @@
-# Generate Sequence of Dates
-#' @importFrom xml2 read_xml
-#' @export
-# library(xml2)
 get_sunrise_sunset <- function(year, month, day, lat, lng){
   # 引数の数足りているか
   if(missing(year) || missing(month) || missing(day) || missing(lat) || missing(lng)){
