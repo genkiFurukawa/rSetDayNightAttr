@@ -1,3 +1,18 @@
+#' 与えられたデータフレームにDayNightという列名にDay/Night/Sunset/Sunriseのカテゴリを付与
+#'
+#' @param df データフレーム
+#' @param datetime_col_name 日時情報が格納された列名
+#' @param lat 緯度
+#' @param lon 経度
+#' @param datetime_format 時間の列名のフォーマット
+#' @param sr_befor 日の出の何分前までをsunsetとするか
+#' @param sr_after 日の出の何分後までをsunsetとするか　
+#' @param ss_before 日の出の何分前までをsunriseとするか
+#' @param ss_after 日の出の何分後までをsunriseとするか
+#' @return DayNightという列名にDay/Night/Sunset/Sunriseのカテゴリを付与したデータフレーム
+#' @examples
+#' set_attr_day_night(df1, Datetime, 45.1 ,135.4)
+#' set_attr_day_night(df1, Datetime, 45.1 ,135.4, "%Y/%m/%d %H:%M", 0, 30, 15, 15)
 set_attr_day_night <- function(df, datetime_col_name, lat, lng, datetime_format="%Y-%m-%d %H:%M:%S", sr_befor=15, sr_after=15, ss_before=15, ss_after=15){
   # 型チェック
   # 新たな列追加
@@ -36,8 +51,6 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, datetime_format=
                                                datetime_col_name,
                                                tmp_datetime + sunrise*60*60 - sr_befor*60,
                                                tmp_datetime + sunrise*60*60 + sr_after*60)
-    # tmp2 <- subset(tmp, tmp[[datetime_col_name]] >= tmp_datetime + sunrise*60*60 - sr_befor*60)
-    # tmp2 <- subset(tmp2, tmp2[[datetime_col_name]] <= tmp_datetime + sunrise*60*60 + sr_after*60)
     if(nrow(tmp2) > 0){
       tmp2[["DayNight"]] <- "Sunrise"
       res <- rbind(res, tmp2)
