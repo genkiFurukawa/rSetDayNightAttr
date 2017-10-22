@@ -4,7 +4,11 @@
 #' @param month 月
 #' @param day 日
 #' @param lat 緯度
+<<<<<<< HEAD
 #' @param lng 経度
+=======
+#' @param lon 経度
+>>>>>>> de6bfb9678a478a7b9cc992cfeb5ee88ad4a1033
 #' @return 日の出の時間と日の入りの時間の数値のリスト
 #' @examples
 #' get_sunrise_sunset(2017, 1, 13, 45.1 ,135.4)
