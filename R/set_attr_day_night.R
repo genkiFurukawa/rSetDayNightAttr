@@ -24,7 +24,7 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, datetime_format=
   end_day <- as.Date(max(df[[datetime_col_name]]))
   period <- as.numeric(end_day - start_day)
   # 日別に処理する
-  print(head(df))
+  # print(head(df))
   res <- subset(df, df[[datetime_col_name]] < as.POSIXlt(start_day))
   # print(res)
   for(i in 0:period){
