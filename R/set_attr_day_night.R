@@ -3,7 +3,7 @@
 #' @param df データフレーム
 #' @param datetime_col_name 日時情報が格納された列名
 #' @param lat 緯度
-#' @param lon 経度
+#' @param lng 経度
 #' @param datetime_format 時間の列名のフォーマット
 #' @param sr_befor 日の出の何分前までをsunsetとするか
 #' @param sr_after 日の出の何分後までをsunsetとするか　
@@ -24,7 +24,7 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, datetime_format=
   end_day <- as.Date(max(df[[datetime_col_name]]))
   period <- as.numeric(end_day - start_day)
   # 日別に処理する
-  print(head(df))
+  # print(head(df))
   res <- subset(df, df[[datetime_col_name]] < as.POSIXlt(start_day))
   # print(res)
   for(i in 0:period){
