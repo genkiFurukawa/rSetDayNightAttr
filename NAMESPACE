@@ -1,2 +1,2 @@
 exportPattern("^[[:alpha:]]+")
-import(xml2)
+import(suncalc)
