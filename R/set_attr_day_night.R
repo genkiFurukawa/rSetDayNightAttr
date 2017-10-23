@@ -14,24 +14,19 @@
 #' @examples
 #' set_attr_day_night(df1, Datetime, 45.1 ,135.4)
 #' set_attr_day_night(df1, Datetime, 45.1 ,135.4, "Asia/Tokyo", "%Y/%m/%d %H:%M", 0, 30, 15, 15)
-set_attr_day_night <- function(df, datetime_col_name, lat, lng, mytz, datetime_format="%Y-%m-%d %H:%M:%S", sr_befor=15, sr_after=15, ss_before=15, ss_after=15){
+set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz, datetime_format="%Y-%m-%d %H:%M:%S", sr_befor=15, sr_after=15, ss_before=15, ss_after=15){
   # 型チェック
   # 新たな列追加
   df[["DayNight"]] <- ""
   # フォーマットに従って時間型に変換
-  df[[datetime_col_name]] <- as.POSIXlt(df[[datetime_col_name]], tz=mytz, format=datetime_format)
-  # print(str(df))
-  print(head(df))
-  # print(df[[datetime_col_name]])
+  df[[datetime_col_name]] <- as.POSIXlt(df[[datetime_col_name]], tz=tz, format=datetime_format)
   # 期間を抜き出す
   start_day <- as.Date(min(df[[datetime_col_name]]))
-  # print(start_day)
   end_day <- as.Date(max(df[[datetime_col_name]]))
-  # print(end_day)
+  #
   period <- as.numeric(end_day - start_day)
-  # 日別に処理する
-  # print(head(df))
-  start_datetime <- as.POSIXlt(as.POSIXct(start_day), tz=mytz)
+  #
+  start_datetime <- as.POSIXlt(as.POSIXct(start_day), tz=tz)
   start_datetime$hour <- 0
   res <- subset(df, df[[datetime_col_name]] < start_datetime)
   # print(res)
@@ -39,25 +34,18 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, mytz, datetime_f
     # 日の出日の入り取得
     tmp_datetime <- start_day + i
     print(tmp_datetime)
-    tmp_datetime <- as.POSIXlt(as.POSIXct(tmp_datetime), tz=mytz)
+    tmp_datetime <- as.POSIXlt(as.POSIXct(tmp_datetime), tz=tz)
     tmp_datetime$hour <- 0
     print(tmp_datetime)
-    sunrise_sunset <- get_sunrise_sunset(tmp_datetime$year+1900, tmp_datetime$mon+1, tmp_datetime$mday, lat, lng, mytz)
-    # print(sunrise_sunset[1])
-    # print(str(sunrise_sunset))
+    sunrise_sunset <- get_sunrise_sunset(tmp_datetime$year+1900, tmp_datetime$mon+1, tmp_datetime$mday, lat, lng, tz)
     sunrise <- sunrise_sunset[1]
     sunset <- sunrise_sunset[2]
-    # print(sunrise)
-    # print(sunset)
     #
     tmp <- subset(df, df[[datetime_col_name]] >= tmp_datetime)
     # print(sunset)
     tmp <- subset(tmp, tmp[[datetime_col_name]] < tmp_datetime+24*60*60)
-    # print(head(tmp))
     #
-    # print(sunrise - sr_befor*60)
     tmp1 <- subset(tmp, tmp[[datetime_col_name]] < sunrise - sr_befor*60)
-    # print(head(tmp1))
     print(tmp1)
     if(nrow(tmp1) > 0){
       tmp1[["DayNight"]] <- "Night"
@@ -98,7 +86,6 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, mytz, datetime_f
       tmp5[["DayNight"]] <- "Night"
       res <- rbind(res, tmp5)
     }
-    # print(res)
   }
   return(res)
 }
