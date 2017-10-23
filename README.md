@@ -6,15 +6,18 @@
 
 ```` 
 install.packages("devtools")
+# suncalパッケージを利用するため
 install.packages("suncalc")
 devtools::install_github("genkiFurukawa/rSetDayNightAttr")
 ````
 
 # Use
-
+デフォルトで日の出の時刻の前後15分がsunrise、日の入りの時刻の前後15分がsunsetの属性のが付与されます。また、また時刻データのデフォルトのフォーマットは%Y-%m-%d %H:%M:%Sとしています。自分の要件やデータに合わせて適宜変更してください。
 ````
 require(rSetDayNightAttr)
-set_attr_day_night(df1, Datetime, 45.1 ,135.4, "Japan")
+res <- set_attr_day_night(sample_data, Datetime, 45.1 ,135.4, "Japan")
+# 
+head(res, 100)
 ````
 
 ## Reference
