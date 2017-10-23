@@ -4,7 +4,7 @@
 \alias{get_sunrise_sunset}
 \title{日付および緯度経度を指定し、日の出と日の入りの時間を取得する}
 \usage{
-get_sunrise_sunset(year, month, day, lat, lng)
+get_sunrise_sunset(year, month, day, lat, lng, tz)
 }
 \arguments{
 \item{year}{年}
@@ -15,15 +15,17 @@ get_sunrise_sunset(year, month, day, lat, lng)
 
 \item{lat}{緯度}
 
-\item{lon}{経度}
+\item{lng}{経度}
+
+\item{tz}{タイムゾーン}
 }
 \value{
-日の出の時間と日の入りの時間
+日の出の時間と日の入りの時間の数値のリスト
 }
 \description{
 日付および緯度経度を指定し、日の出と日の入りの時間を取得する
 }
 \examples{
-get_sunrise_sunset(2017, 1, 13, 45.1 ,135.4)
-get_sunrise_sunset(2010, 3, 31, 25.1 ,138.4)
+get_sunrise_sunset(2017, 1, 13, 35.774781, 139.606076, "Asia/Tokyo")
+get_sunrise_sunset(2010, 3, 31, 25.1 ,138.4, "UTC")
 }

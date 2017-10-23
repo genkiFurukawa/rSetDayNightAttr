@@ -4,7 +4,7 @@
 \alias{set_attr_day_night}
 \title{与えられたデータフレームにDayNightという列名にDay/Night/Sunset/Sunriseのカテゴリを付与}
 \usage{
-set_attr_day_night(df, datetime_col_name, lat, lng,
+set_attr_day_night(df, datetime_col_name, lat, lng, tz,
   datetime_format = "\%Y-\%m-\%d \%H:\%M:\%S", sr_befor = 15,
   sr_after = 15, ss_before = 15, ss_after = 15)
 }
@@ -15,6 +15,10 @@ set_attr_day_night(df, datetime_col_name, lat, lng,
 
 \item{lat}{緯度}
 
+\item{lng}{経度}
+
+\item{tz}{タイムゾーン}
+
 \item{datetime_format}{時間の列名のフォーマット}
 
 \item{sr_befor}{日の出の何分前までをsunsetとするか}
@@ -24,16 +28,14 @@ set_attr_day_night(df, datetime_col_name, lat, lng,
 \item{ss_before}{日の出の何分前までをsunriseとするか}
 
 \item{ss_after}{日の出の何分後までをsunriseとするか}
-
-\item{lon}{経度}
 }
 \value{
-DayNightという列名にDay/Night/Sunset/Sunriseのカテゴリを付与したデータフレーム
+DayNightという列名にday/night/sunset/sunriseのカテゴリを付与したデータフレーム
 }
 \description{
 与えられたデータフレームにDayNightという列名にDay/Night/Sunset/Sunriseのカテゴリを付与
 }
 \examples{
 set_attr_day_night(df1, Datetime, 45.1 ,135.4)
-set_attr_day_night(df1, Datetime, 45.1 ,135.4, "\%Y/\%m/\%d \%H:\%M", 0, 30, 15, 15)
+set_attr_day_night(df1, Datetime, 45.1 ,135.4, "Asia/Tokyo", "\%Y/\%m/\%d \%H:\%M", 0, 30, 15, 15)
 }
