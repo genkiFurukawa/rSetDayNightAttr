@@ -15,6 +15,7 @@ get_sunrise_sunset <- function(year, month, day, lat, lng, tz){
   res <- getSunlightTimes(date, lat, lng, keep = c("sunrise", "sunset"), tz=tz)
   sunrise_time <- as.POSIXlt(res[["sunrise"]])
   sunset_time <- as.POSIXlt(res[["sunset"]])
+  print(paste("sunrise:", sunrise_time, ", ", "sunset:", sunset_time, sep=""))
   sunrise_sunset_posixlt <- c(sunrise_time, sunset_time)
   names(sunrise_sunset_posixlt) <- c("sunrise", "sunset")
   return(sunrise_sunset_posixlt)
