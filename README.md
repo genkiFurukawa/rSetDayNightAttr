@@ -12,11 +12,14 @@ devtools::install_github("genkiFurukawa/rSetDayNightAttr")
 ````
 
 # Use
-デフォルトで日の出の時刻の前後15分がsunrise、日の入りの時刻の前後15分がsunsetの属性のが付与されます。また、また時刻データのデフォルトのフォーマットは%Y-%m-%d %H:%M:%Sとしています。自分の要件やデータに合わせて適宜変更してください。
+デフォルトで日の出の時刻の前後15分がsunrise、日の入りの時刻の前後15分がsunsetの属性のが付与されます。
+また、また時刻データのデフォルトのフォーマットは%Y-%m-%d %H:%M:%Sとしています。
+自分の要件やデータに合わせて適宜変更してください。
 ````
 require(rSetDayNightAttr)
+# デフォルトの値でデータの処理を実行する場合
 res <- set_attr_day_night(sample_data, Datetime, 45.1 ,135.4, "Japan")
-# 
+# 処理したデータの確認
 head(res, 100)
 ````
 
