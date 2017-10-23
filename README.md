@@ -23,9 +23,22 @@ res <- set_attr_day_night(df=sample_data, datetime_col_name=Datetime, lat=45.1, 
 head(res, 100)
 # 日の出から15分後までをsunrise、sunsetの属性を付与したくないとき
 res <- set_attr_day_night(df=sample_data, datetime_col_name=Datetime, lat=45.1, lng=135.4, tz="Japan", sr_befor=0, sr_after=15, ss_before=0, ss_after=0)
+# 処理したデータの確認
 head(res, 100)
 ````
 
 ## Reference
 
 ### set_attr_day_night
+処理したいデータフレームにDayNightという名前の列を追加し、その列にday/night/sunset/sunriseの値を付与したデータフレームを返します。
+ * `df`: 処理したいデータフレーム。データフレーム。
+ * `datetime_col_name`: 処理したいデータの時系列の情報が格納されている列名。文字列。
+ * `lat`: 緯度。数値。南半球の場合は負の値で指定。
+ * `lng`: 経度。数値。南半球の場合は負の値で指定。
+ * `tz`: タイムゾーン。文字列。
+ * `datetime_format`: `datetime_col_name`のフォーマット。文字列。デフォルトは'%Y-%m-%d %H:%M:%S'。
+ * `sr_befor`: 日の出前の何分間をsunriseとするか。数値。デフォルトは15。
+ * `sr_after`: 日の出前の何分間をsunriseとするか。数値。デフォルトは15。
+ * `ss_befor`: 日の出前の何分間をsunriseとするか。数値。デフォルトは15。
+ * `ss_after`: 日の出前の何分間をsunriseとするか。数値。デフォルトは15。
+ 
