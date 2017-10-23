@@ -18,11 +18,11 @@ devtools::install_github("genkiFurukawa/rSetDayNightAttr")
 ````
 require(rSetDayNightAttr)
 # デフォルトの値でデータの処理を実行する場合
-res <- set_attr_day_night(df=sample_data, datetime_col_name=Datetime, lat=45.1, lng=135.4, tz="Japan")
+res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", lat=45.1, lng=135.4, tz="Japan")
 # 処理したデータの確認
 head(res, 100)
 # 日の出から15分後までをsunrise、sunsetの属性を付与したくないとき
-res <- set_attr_day_night(df=sample_data, datetime_col_name=Datetime, lat=45.1, lng=135.4, tz="Japan", sr_befor=0, sr_after=15, ss_before=0, ss_after=0)
+res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", lat=45.1, lng=135.4, tz="Japan", sr_befor=0, sr_after=15, ss_before=0, ss_after=0)
 # 処理したデータの確認
 head(res, 100)
 ````
