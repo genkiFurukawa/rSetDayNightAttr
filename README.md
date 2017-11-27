@@ -1,6 +1,6 @@
 # rSetDayNightAttr
 
-### 時系列データにday/night/sunset/sunriseの属性を付与するパッケージです。緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性を付与します。
+### 時系列データにday/night/sunset/sunriseの属性を付与するRのパッケージです。緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性を付与します。
 
 # Installation
 

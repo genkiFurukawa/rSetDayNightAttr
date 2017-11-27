@@ -62,36 +62,53 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
         res <- rbind(res, tmp1)
       }
       #
-      tmp2 <- extract_data_specified_time_period(tmp,
-                                                 datetime_col_name,
-                                                 start_time - sr_befor*60,
-                                                 start_time + sr_after*60)
-      if(nrow(tmp2) > 0){
-        tmp2[["DayNight"]] <- "sunrise"
-        res <- rbind(res, tmp2)
+      if(!(sr_befor == 0 && sr_after == 0)){
+        tmp2 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   start_time - sr_befor*60,
+                                                   start_time + sr_after*60)
+        if(nrow(tmp2) > 0){
+          tmp2[["DayNight"]] <- "sunrise"
+          res <- rbind(res, tmp2)
+        }
       }
       #
-      tmp3 <- extract_data_specified_time_period(tmp,
-                                                 datetime_col_name,
-                                                 start_time + sr_after*60,
-                                                 end_time - ss_before*60,
-                                                 start_equal=FALSE,
-                                                 end_equal=FALSE)
+      if(sr_befor == 0 && sr_after == 0){
+        tmp3 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   start_time + sr_after*60,
+                                                   end_time - ss_before*60,
+                                                   start_equal=TRUE,
+                                                   end_equal=FALSE)
+      }else{
+        tmp3 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   start_time + sr_after*60,
+                                                   end_time - ss_before*60,
+                                                   start_equal=FALSE,
+                                                   end_equal=FALSE)
+        }
       if(nrow(tmp3) > 0){
         tmp3[["DayNight"]] <- "day"
         res <- rbind(res, tmp3)
       }
       #
-      tmp4 <- extract_data_specified_time_period(tmp,
-                                                 datetime_col_name,
-                                                 end_time - ss_before*60,
-                                                 end_time + ss_after*60)
-      if(nrow(tmp4) > 0){
-        tmp4[["DayNight"]] <- "sunset"
-        res <- rbind(res, tmp4)
+      if(!(ss_before == 0 && ss_after == 0)){
+        tmp4 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   end_time - ss_before*60,
+                                                   end_time + ss_after*60)
+        if(nrow(tmp4) > 0){
+          tmp4[["DayNight"]] <- "sunset"
+          res <- rbind(res, tmp4)
+        }
       }
       #
-      tmp5 <- subset(tmp, tmp[[datetime_col_name]] > end_time + ss_after*60)
+      if(ss_before == 0 && ss_after == 0){
+        tmp5 <- subset(tmp, tmp[[datetime_col_name]] >= end_time + ss_after*60)
+      }else{
+        tmp5 <- subset(tmp, tmp[[datetime_col_name]] > end_time + ss_after*60)
+      }
       if(nrow(tmp5) > 0){
         tmp5[["DayNight"]] <- "night"
         res <- rbind(res, tmp5)
@@ -121,21 +138,46 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
         res <- rbind(res, tmp1)
       }
       #
-      tmp2 <- extract_data_specified_time_period(tmp,
-                                                 datetime_col_name,
-                                                 sunrise - sr_befor*60,
-                                                 sunrise + sr_after*60)
-      if(nrow(tmp2) > 0){
-        tmp2[["DayNight"]] <- "sunrise"
-        res <- rbind(res, tmp2)
+      # tmp2 <- extract_data_specified_time_period(tmp,
+      #                                            datetime_col_name,
+      #                                            sunrise - sr_befor*60,
+      #                                            sunrise + sr_after*60)
+      # if(nrow(tmp2) > 0){
+      #   tmp2[["DayNight"]] <- "sunrise"
+      #   res <- rbind(res, tmp2)
+      # }
+      if(!(sr_befor == 0 && sr_after == 0)){
+        tmp2 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   sunrise - sr_befor*60,
+                                                   sunrise + sr_after*60)
+        if(nrow(tmp2) > 0){
+          tmp2[["DayNight"]] <- "sunrise"
+          res <- rbind(res, tmp2)
+        }
       }
       #
-      tmp3 <- extract_data_specified_time_period(tmp,
-                                                 datetime_col_name,
-                                                 sunrise + sr_after*60,
-                                                 sunset - ss_before*60,
-                                                 start_equal=FALSE,
-                                                 end_equal=FALSE)
+      if(sr_befor == 0 && sr_after == 0){
+        tmp3 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   sunrise + sr_after*60,
+                                                   sunset - ss_before*60,
+                                                   start_equal=TRUE,
+                                                   end_equal=FALSE)
+      }else{
+        tmp3 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   sunrise + sr_after*60,
+                                                   sunset - ss_before*60,
+                                                   start_equal=FALSE,
+                                                   end_equal=FALSE)
+      }
+      # tmp3 <- extract_data_specified_time_period(tmp,
+      #                                            datetime_col_name,
+      #                                            sunrise + sr_after*60,
+      #                                            sunset - ss_before*60,
+      #                                            start_equal=FALSE,
+      #                                            end_equal=FALSE)
       if(nrow(tmp3) > 0){
         tmp3[["DayNight"]] <- "day"
         res <- rbind(res, tmp3)
@@ -145,12 +187,27 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
                                                  datetime_col_name,
                                                  sunset - ss_before*60,
                                                  sunset + ss_after*60)
-      if(nrow(tmp4) > 0){
-        tmp4[["DayNight"]] <- "sunset"
-        res <- rbind(res, tmp4)
+      # if(nrow(tmp4) > 0){
+      #   tmp4[["DayNight"]] <- "sunset"
+      #   res <- rbind(res, tmp4)
+      # }
+      if(!(ss_before == 0 && ss_after == 0)){
+        tmp4 <- extract_data_specified_time_period(tmp,
+                                                   datetime_col_name,
+                                                   sunset - ss_before*60,
+                                                   sunset + ss_after*60)
+        if(nrow(tmp4) > 0){
+          tmp4[["DayNight"]] <- "sunset"
+          res <- rbind(res, tmp4)
+        }
       }
       #
-      tmp5 <- subset(tmp, tmp[[datetime_col_name]] > sunset + ss_after*60)
+      if(ss_before == 0 && ss_after == 0){
+        tmp5 <- subset(tmp, tmp[[datetime_col_name]] >= sunset + ss_after*60)
+      }else{
+        tmp5 <- subset(tmp, tmp[[datetime_col_name]] > sunset + ss_after*60)
+      }
+      # tmp5 <- subset(tmp, tmp[[datetime_col_name]] > sunset + ss_after*60)
       if(nrow(tmp5) > 0){
         tmp5[["DayNight"]] <- "night"
         res <- rbind(res, tmp5)
