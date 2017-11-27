@@ -10,17 +10,19 @@
 #' @param sr_after 日の出の何分後までをsunsetとするか　
 #' @param ss_before 日の出の何分前までをsunriseとするか
 #' @param ss_after 日の出の何分後までをsunriseとするか
+#' @param fixed_time 属性を付与する時間帯を固定するかどうか
+#' @param daytime_start 属性を付与する時間帯を固定したときの"day"の属性を付与し始める時間
+#' @param daytime_end 属性を付与する時間帯を固定したときの"day"の属性を付与し終わる時間
 #' @return DayNightという列名にday/night/sunset/sunriseのカテゴリを付与したデータフレーム
 #' @examples
 #' set_attr_day_night(df1, Datetime, 45.1 ,135.4)
 #' set_attr_day_night(df1, Datetime, 45.1 ,135.4, "Asia/Tokyo", "%Y/%m/%d %H:%M", 0, 30, 15, 15)
 set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
                                datetime_format="%Y-%m-%d %H:%M:%S",
-                               daytime_start="06:00:00",
-                               daytime_end="18:00:00",
                                sr_befor=15, sr_after=15,
                                ss_before=15, ss_after=15,
-                               fixed_time=TRUE){
+                               fixed_time=TRUE, daytime_start="06:00:00", daytime_end="18:00:00"
+                               ){
 
   # 新たな列追加
   df[["DayNight"]] <- ""
