@@ -1,10 +1,9 @@
 # rSetDayNightAttr
-
-### 時刻データの列を含むcsvファイルに対し、day/night/sunrise/sunsetの属性の列を追加するRのパッケージです。
-### 日の出と日の入りの時間を指定し、day/night/sunrise/sunsetの属性の列を追加することができます。
-### また、緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性の列を追加することも可能です。
-### sunrise/sunsetの属性は任意で付与可能です。
-### バイオロギングなどで取得したデータに対して利用されることを想定しています。
+時刻データの列を含むデータフレームに対し、day/night/sunrise/sunsetの属性の列を追加するRのパッケージです。  
+日の出と日の入りの時間を指定し、day/night/sunrise/sunsetの属性の列を追加することができます。  
+また、緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性の列を追加することも可能です。  
+sunrise/sunsetの属性は任意で付与可能です。  
+バイオロギングなどで取得したcsvデータをデータフレームとして読み込み、利用されることを想定しています。
 
 # インストール
 
@@ -27,10 +26,10 @@ require(rSetDayNightAttr)
 res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime")
 # 処理したデータの確認
 head(res, 100)
-# sunrise・sunsetの属性を付与せず、06:00 ~ 18:00の時間帯のデータにday、それ以外の時間帯のデータはnightの属性を付与するとき
+# sunrise・sunsetの属性を付与しないとき
 res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", sr_befor=0, sr_after=0, ss_before=0, ss_after=0)
-# 処理したデータの上から100行を確認
-head(res, 100)
+# 07:15を日の出、19:00を日の入りとするとき
+res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", daytime_start="07:15:00", daytime_end="19:00:00")
 ````
 
 ## 属性を付与する時間を固定しないとき
