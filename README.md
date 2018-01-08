@@ -1,6 +1,10 @@
 # rSetDayNightAttr
 
-### 時刻データの列を含むcsvファイルに対し、day/night/sunrise/sunsetの属性の列を追加するRのパッケージです。日の出と日の入りの時間を指定し、day/night/sunrise/sunsetの属性の列を追加することができます。また、緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性の列を追加することも可能です。sunrise/sunsetの属性は任意で付与可能です。
+### 時刻データの列を含むcsvファイルに対し、day/night/sunrise/sunsetの属性の列を追加するRのパッケージです。
+### 日の出と日の入りの時間を指定し、day/night/sunrise/sunsetの属性の列を追加することができます。
+### また、緯度と経度とタイムゾーンを指定することで、日別で日の出と日の入りを計算し、day/night/sunset/sunriseの属性の列を追加することも可能です。
+### sunrise/sunsetの属性は任意で付与可能です。
+### バイオロギングなどで取得したデータに対して利用されることを想定しています。
 
 # インストール
 
@@ -14,7 +18,7 @@ devtools::install_github("genkiFurukawa/rSetDayNightAttr")
 # 使い方
 
 ## 属性を付与する時間を固定するとき
-デフォルトでは日の出の前後15分にsunriseと分類され、日の入りの前後15分がsunsetと分類されます。また、06:15から17:45の間はdayと分類します。
+デフォルトでは日の出の時刻を06:00、日の入りの時刻を18:00としています。また、日の出の前後15分がsunriseと分類され、日の入りの前後15分がsunsetと分類されます。
 時刻データのデフォルトのフォーマットは%Y-%m-%d %H:%M:%Sとしています。
 要件やデータの列名に合わせてパラメータを適宜変更してください。
 ````
@@ -43,8 +47,9 @@ head(res, 100)
 
 # Reference
 
-## set_attr_day_nightで指定可能なパラメータ
+## set_attr_day_night
 処理したいデータフレームにDayNightという名前の列を追加し、その列にday/night/sunset/sunriseの値を付与したデータフレームを返します。
+### 指定可能なパラメータ
  * `df`: 処理したいデータフレーム。データフレーム。
  * `datetime_col_name`: 処理したいデータの時系列の情報が格納されている列名。文字列。
  * `lat`: 緯度。数値。南半球の場合は負の値で指定。
@@ -65,7 +70,7 @@ head(res, 100)
 Excelでそのままcsvとして保存すると、日時の列が2017/11/3 10:05のような形式で保存されます。
 その場合、以下のようにdatetime_formatを"%Y/%m/%d %H:%M"とすると実行できます。
 ````
-res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", datetime_format="%Y/%m/%d %H:%M:%S", lat=45.1, lng=135.4, tz="Japan", fixed_time=FALES)
+res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", datetime_format="%Y/%m/%d %H:%M", lat=45.1, lng=135.4, tz="Japan", fixed_time=FALES)
 ````
 また、セルの書式設定でユーザ設定を選択し、yyyy-mm-dd hh:mm:ssと指定した上でcsvとして保存するとdatetime_formatを指定せず実行できます。
 
