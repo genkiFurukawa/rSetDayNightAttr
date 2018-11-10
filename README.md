@@ -70,3 +70,4 @@ res <- set_attr_day_night(df=sample_data, datetime_col_name="Datetime", datetime
 ````
 また、セルの書式設定でユーザ設定を選択し、yyyy-mm-dd hh:mm:ssと指定した上でcsvとして保存するとdatetime_formatを指定せず実行できます。
 
+

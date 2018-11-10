@@ -6,7 +6,7 @@
 #' @param lng 経度
 #' @param tz データのタイムゾーン
 #' @param datetime_format 時間の列名のフォーマット
-#' @param sr_befor 日の出の何分前までをsunsetとするか
+#' @param sr_before 日の出の何分前までをsunsetとするか
 #' @param sr_after 日の出の何分後までをsunsetとするか　
 #' @param ss_before 日の出の何分前までをsunriseとするか
 #' @param ss_after 日の出の何分後までをsunriseとするか
@@ -19,7 +19,7 @@
 #' set_attr_day_night(df1, Datetime, 45.1 ,135.4, "Asia/Tokyo", "%Y/%m/%d %H:%M", 0, 30, 15, 15)
 set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
                                datetime_format="%Y-%m-%d %H:%M:%S",
-                               sr_befor=15, sr_after=15,
+                               sr_before=15, sr_after=15,
                                ss_before=15, ss_after=15,
                                fixed_time=TRUE, daytime_start="06:00:00", daytime_end="18:00:00"
                                ){
@@ -55,17 +55,17 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
       #
       tmp <- subset(tmp, tmp[[datetime_col_name]] < tmp_datetime+24*60*60)
       #
-      tmp1 <- subset(tmp, tmp[[datetime_col_name]] < start_time - sr_befor*60)
+      tmp1 <- subset(tmp, tmp[[datetime_col_name]] < start_time - sr_before*60)
       #
       if(nrow(tmp1) > 0){
         tmp1[["DayNight"]] <- "night"
         res <- rbind(res, tmp1)
       }
       #
-      if(!(sr_befor == 0 && sr_after == 0)){
+      if(!(sr_before == 0 && sr_after == 0)){
         tmp2 <- extract_data_specified_time_period(tmp,
                                                    datetime_col_name,
-                                                   start_time - sr_befor*60,
+                                                   start_time - sr_before*60,
                                                    start_time + sr_after*60)
         if(nrow(tmp2) > 0){
           tmp2[["DayNight"]] <- "sunrise"
@@ -73,7 +73,7 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
         }
       }
       #
-      if(sr_befor == 0 && sr_after == 0){
+      if(sr_before == 0 && sr_after == 0){
         tmp3 <- extract_data_specified_time_period(tmp,
                                                    datetime_col_name,
                                                    start_time + sr_after*60,
@@ -131,7 +131,7 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
       #
       tmp <- subset(tmp, tmp[[datetime_col_name]] < tmp_datetime+24*60*60)
       #
-      tmp1 <- subset(tmp, tmp[[datetime_col_name]] < sunrise - sr_befor*60)
+      tmp1 <- subset(tmp, tmp[[datetime_col_name]] < sunrise - sr_before*60)
       #
       if(nrow(tmp1) > 0){
         tmp1[["DayNight"]] <- "night"
@@ -146,10 +146,10 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
       #   tmp2[["DayNight"]] <- "sunrise"
       #   res <- rbind(res, tmp2)
       # }
-      if(!(sr_befor == 0 && sr_after == 0)){
+      if(!(sr_before == 0 && sr_after == 0)){
         tmp2 <- extract_data_specified_time_period(tmp,
                                                    datetime_col_name,
-                                                   sunrise - sr_befor*60,
+                                                   sunrise - sr_before*60,
                                                    sunrise + sr_after*60)
         if(nrow(tmp2) > 0){
           tmp2[["DayNight"]] <- "sunrise"
@@ -157,7 +157,7 @@ set_attr_day_night <- function(df, datetime_col_name, lat, lng, tz="Asia/Tokyo",
         }
       }
       #
-      if(sr_befor == 0 && sr_after == 0){
+      if(sr_before == 0 && sr_after == 0){
         tmp3 <- extract_data_specified_time_period(tmp,
                                                    datetime_col_name,
                                                    sunrise + sr_after*60,
